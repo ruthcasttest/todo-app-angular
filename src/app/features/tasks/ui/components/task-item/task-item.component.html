@@ -1,0 +1,38 @@
+<mat-card class="task-card" [class.completed]="task.completed">
+    <mat-card-content>
+        <div class="task-header">
+            <mat-checkbox
+                [checked]="task.completed"
+                (change)="onToggleComplete($event.checked)"
+                color="primary"
+            />
+            <div class="task-info">
+                <h3 class="task-title" [class.completed-text]="task.completed">
+                    {{ task.title }}
+                </h3>
+                <p class="task-description" [class.completed-text]="task.completed">
+                    {{ task.description }}
+                </p>
+                <span class="task-date">{{ task.createdAt | date: "dd/MM/yyyy HH:mm" }}</span>
+            </div>
+            <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Opciones de tarea"
+            >
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+        <span>Editar</span>
+    </button>
+    <button mat-menu-item (click)="onDelete()" class="delete-button">
+        <mat-icon>delete</mat-icon>
+        <span>Eliminar</span>
+    </button>
+</mat-menu>

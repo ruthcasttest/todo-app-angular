@@ -1,0 +1,31 @@
+.task-form-card {
+    margin-bottom: 24px;
+    padding: 24px;
+    mat-card-header {
+        margin-bottom: 16px;
+
+        mat-card-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+
+    mat-card-content {
+        padding: 16px 0;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}

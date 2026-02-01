@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Editar Tarea</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="editForm" id="editTaskForm">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Título</mat-label>
+            <input
+                matInput
+                type="text"
+                formControlName="title"
+                maxlength="100"
+            />
+            @if (titleControl?.hasError("required") && titleControl?.touched) {
+                <mat-error>El título es requerido</mat-error>
+            }
+            @if (titleControl?.hasError("maxlength")) {
+                <mat-error>Máximo 100 caracteres</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea
+                matInput
+                formControlName="description"
+                rows="4"
+                maxlength="500"
+            ></textarea>
+            @if (descriptionControl?.hasError("required") && descriptionControl?.touched) {
+                <mat-error>La descripción es requerida</mat-error>
+            }
+            @if (descriptionControl?.hasError("maxlength")) {
+                <mat-error>Máximo 500 caracteres</mat-error>
+            }
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="onSave()"
+        [disabled]="editForm.invalid"
+    >
+        Guardar
+    </button>
+</mat-dialog-actions>

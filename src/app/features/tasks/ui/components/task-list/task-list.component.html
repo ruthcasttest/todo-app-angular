@@ -1,0 +1,17 @@
+<div class="task-list">
+    @if (tasks.length === 0) {
+        <div class="empty-state">
+            <p>No hay tareas pendientes</p>
+            <span>Agrega una nueva tarea para comenzar</span>
+        </div>
+    } @else {
+        @for (task of tasks; track trackByTaskId($index, task)) {
+            <app-task-item
+                [task]="task"
+                (toggleComplete)="onToggleComplete(task, $event)"
+                (edit)="onEditTask(task)"
+                (delete)="onDeleteTask(task.id)"
+            />
+        }
+    }
+</div>

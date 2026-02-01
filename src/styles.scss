@@ -1,4 +1,42 @@
 @import "assets/styles/theme";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Inter, "Helvetica Neue", sans-serif; }
+// Breakpoints
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+// Responsive mixin
+@mixin respond-to($breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+// Global styles
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, "Helvetica Neue", sans-serif;
+}
+
+// Utility classes
+.full-width {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+// Mat-snackbar error styling
+.error-snackbar {
+    background-color: #f44336 !important;
+    color: white !important;
+}
