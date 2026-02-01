@@ -3,13 +3,19 @@
         <div class="task-header">
             <mat-checkbox
                 [checked]="task.completed"
-                (change)="onToggleComplete($event.checked)"
+                (click)="onToggleComplete($event)"
                 color="primary"
             />
             <div class="task-info">
-                <h3 class="task-title" [class.completed-text]="task.completed">
-                    {{ task.title }}
-                </h3>
+                <div class="task-title-row">
+                    <h3 class="task-title" [class.completed-text]="task.completed">
+                        {{ task.title }}
+                    </h3>
+                    <mat-chip class="status-badge" [class.status-completed]="task.completed" [class.status-pending]="!task.completed">
+                        <mat-icon class="status-icon">{{ task.completed ? 'check_circle' : 'schedule' }}</mat-icon>
+                        {{ task.completed ? 'Completada' : 'Pendiente' }}
+                    </mat-chip>
+                </div>
                 <p class="task-description" [class.completed-text]="task.completed">
                     {{ task.description }}
                 </p>

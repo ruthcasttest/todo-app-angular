@@ -1,17 +1,76 @@
 <div class="task-list">
     @if (tasks.length === 0) {
         <div class="empty-state">
-            <p>No hay tareas pendientes</p>
+            <mat-icon class="empty-icon">assignment</mat-icon>
+            <p>No hay tareas</p>
             <span>Agrega una nueva tarea para comenzar</span>
         </div>
     } @else {
-        @for (task of tasks; track trackByTaskId($index, task)) {
-            <app-task-item
-                [task]="task"
-                (toggleComplete)="onToggleComplete(task, $event)"
-                (edit)="onEditTask(task)"
-                (delete)="onDeleteTask(task.id)"
+        <mat-form-field class="search-field" appearance="outline">
+            <mat-label>Buscar tareas</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+                matInput
+                type="text"
+                placeholder="Buscar por título o descripción..."
+                [ngModel]="searchTerm()"
+                (ngModelChange)="onSearchChange($event)"
             />
-        }
+            @if (searchTerm()) {
+                <button matSuffix mat-icon-button (click)="onSearchChange('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+            }
+        </mat-form-field>
+
+        <mat-tab-group
+            class="task-tabs"
+            (selectedIndexChange)="onTabChange($event)"
+            animationDuration="200ms"
+        >
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span class="tab-label">
+                        Todas
+                        <span class="tab-badge">{{ allCount() }}</span>
+                    </span>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span class="tab-label">
+                        Pendientes
+                        <span class="tab-badge pending">{{ pendingCount() }}</span>
+                    </span>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span class="tab-label">
+                        Completadas
+                        <span class="tab-badge completed">{{ completedCount() }}</span>
+                    </span>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+
+        <div class="tasks-content">
+            @if (filteredTasks().length === 0) {
+                <div class="empty-state">
+                    <mat-icon class="empty-icon">search_off</mat-icon>
+                    <p>No se encontraron tareas</p>
+                    <span>Intenta con otros términos de búsqueda</span>
+                </div>
+            } @else {
+                @for (task of filteredTasks(); track trackByTaskId($index, task)) {
+                    <app-task-item
+                        [task]="task"
+                        (toggleComplete)="onToggleComplete(task, $event)"
+                        (edit)="onEditTask(task)"
+                        (delete)="onDeleteTask(task.id)"
+                    />
+                }
+            }
+        </div>
     }
 </div>

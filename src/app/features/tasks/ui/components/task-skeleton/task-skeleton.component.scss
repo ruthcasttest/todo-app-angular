@@ -1,0 +1,89 @@
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.skeleton-card {
+    margin-bottom: 12px;
+
+    mat-card-content {
+        padding: 16px;
+    }
+}
+
+.skeleton-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.skeleton-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.skeleton-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.skeleton-title {
+    width: 60%;
+    height: 20px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-badge {
+    width: 80px;
+    height: 24px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-description {
+    width: 90%;
+    height: 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-date {
+    width: 100px;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-menu {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}

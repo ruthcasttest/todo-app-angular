@@ -9,7 +9,91 @@ Siéntete libre de clonar este repositorio y utilizarlo como base para el desarr
 De igual manera puedes documentar dentro de este archivo todo lo que deseas contar sobre tu desarrollo, como por ejemplo, decisiones de diseño, problemas encontrados, etc.
 
 ## Comentarios sobre el desarrollo
-...
+
+### Arquitectura del Proyecto
+
+Se implementó una **Arquitectura Limpia por Features** que permite una clara separación de responsabilidades y facilita el mantenimiento y escalabilidad del código.
+
+```
+src/app/
+├── core/                    # Servicios globales, guards e interceptors
+│   ├── guards/              # AuthGuard para protección de rutas
+│   ├── interceptors/        # HTTP interceptors (auth, error handling)
+│   └── services/            # Servicios compartidos (storage, etc.)
+│
+├── features/                # Módulos de funcionalidad
+│   ├── auth/                # Feature de autenticación
+│   │   ├── application/     # Servicios y estado
+│   │   ├── domain/          # Modelos e interfaces
+│   │   ├── infrastructure/  # Adapters (API)
+│   │   └── ui/              # Componentes y páginas
+│   │
+│   └── tasks/               # Feature de tareas
+│       ├── application/     # TaskService, TasksState
+│       ├── domain/          # Task model, ports
+│       ├── infrastructure/  # TaskApiAdapter
+│       └── ui/              # Componentes y páginas
+│
+└── shared/                  # Componentes reutilizables
+    └── components/          # ConfirmDialog, Header, etc.
+```
+
+### Decisiones Técnicas
+
+#### 1. Gestión de Estado con Signals
+Se utilizaron **Angular Signals** (introducidos en Angular 16+) para la gestión del estado reactivo:
+- `TasksState`: Maneja el estado de las tareas con signals (`tasks`, `isLoading`, `error`)
+- Computed signals para datos derivados (`pendingTasks`, `completedTasks`, `taskCount`)
+- Beneficios: mejor rendimiento, código más limpio y detección de cambios granular
+
+#### 2. Componentes Standalone
+Todos los componentes utilizan la API de **standalone components** de Angular 17:
+- Eliminación de NgModules innecesarios
+- Imports declarativos por componente
+- Mejor tree-shaking y tiempos de carga
+
+#### 3. Nueva Sintaxis de Control Flow
+Se implementó la nueva sintaxis de control de flujo de Angular 17:
+- `@if` / `@else` en lugar de `*ngIf`
+- `@for` con `track` en lugar de `*ngFor` con `trackBy`
+- Mejor legibilidad y rendimiento
+
+#### 4. Patrón Smart/Dumb Components
+- **Smart Components (Pages)**: Manejan la lógica de negocio y comunicación con servicios
+- **Dumb Components**: Componentes de presentación puros con `@Input()` y `@Output()`
+
+### Funcionalidades Implementadas
+
+| Funcionalidad | Descripción |
+|---------------|-------------|
+| Autenticación | Login por email con creación automática de usuario |
+| CRUD de Tareas | Crear, editar, eliminar y marcar como completadas |
+| Filtros | Búsqueda por título/descripción y filtrado por estado |
+| Tabs con Contadores | Visualización de tareas por estado (Todas/Pendientes/Completadas) |
+| Confirmación | Diálogos de confirmación para acciones destructivas |
+| Skeleton Loading | Indicadores de carga con skeleton placeholders |
+| Badge de Estado | Indicador visual del estado de cada tarea |
+| Diseño Responsive | Adaptación a diferentes tamaños de pantalla |
+
+### Componentes de UI (Angular Material)
+
+- `MatCard`: Contenedor de tareas
+- `MatCheckbox`: Toggle de completado
+- `MatChip`: Badge de estado (Pendiente/Completada)
+- `MatTabs`: Navegación entre filtros
+- `MatDialog`: Diálogos de confirmación y edición
+- `MatFormField`: Campos de formulario
+- `MatMenu`: Menú de opciones por tarea
+- `MatIcon`: Iconografía consistente
+
+### Patrones y Buenas Prácticas
+
+- **SOLID**: Separación de responsabilidades en servicios y componentes
+- **DRY**: Reutilización de componentes (ConfirmDialog, Header)
+- **Reactive Programming**: Uso de RxJS para operaciones asíncronas
+- **Type Safety**: Tipado estricto con TypeScript
+- **trackBy**: Optimización de renderizado en listas
+- **Lazy Loading**: Carga diferida de rutas por feature
 
 ## Development server
 

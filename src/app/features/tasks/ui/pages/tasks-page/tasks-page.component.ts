@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { ConfirmDialogComponent } from "../../../../../shared/components/confirm-dialog/confirm-dialog.component";
 import { HeaderComponent } from "../../../../../shared/components/header/header.component";
@@ -9,6 +8,7 @@ import { TasksState } from "../../../application/state/tasks.state";
 import { Task } from "../../../domain/models/task.model";
 import { TaskFormComponent, TaskFormData } from "../../components/task-form/task-form.component";
 import { TaskListComponent } from "../../components/task-list/task-list.component";
+import { TaskSkeletonComponent } from "../../components/task-skeleton/task-skeleton.component";
 import {
     TaskEditDialogComponent,
     TaskEditDialogResult
@@ -21,7 +21,7 @@ import {
         HeaderComponent,
         TaskFormComponent,
         TaskListComponent,
-        MatProgressSpinnerModule
+        TaskSkeletonComponent
     ],
     templateUrl: "./tasks-page.component.html",
     styleUrl: "./tasks-page.component.scss"
@@ -31,7 +31,7 @@ export class TasksPageComponent implements OnInit {
     private readonly tasksState = inject(TasksState);
     private readonly dialog = inject(MatDialog);
 
-    readonly pendingTasks = this.tasksState.pendingTasks;
+    readonly tasks = this.tasksState.pendingTasks;
     readonly isLoading = this.tasksState.isLoading;
 
     ngOnInit(): void {
