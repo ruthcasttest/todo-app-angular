@@ -10,13 +10,13 @@ export const routes: Routes = [
     },
     {
         path: "login",
-        loadComponent: () => import("./features/auth/ui/pages/login/login.component")
+        loadComponent: () => import("./features/auth/pages/login/login.component")
             .then((m) => m.LoginComponent),
         canActivate: [noAuthGuard]
     },
     {
         path: "tasks",
-        loadComponent: () => import("./features/tasks/ui/pages/tasks-page/tasks-page.component")
+        loadComponent: () => import("./features/tasks/pages/tasks-page/tasks-page.component")
             .then((m) => m.TasksPageComponent),
         canActivate: [authGuard]
     },

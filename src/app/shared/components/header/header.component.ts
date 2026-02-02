@@ -3,8 +3,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
-import { AuthService } from "../../../features/auth/application/services/auth.service";
-import { AuthState } from "../../../features/auth/application/state/auth.state";
+import { AuthService } from "../../../features/auth/services/auth.service";
+import { AuthState } from "../../../features/auth/state/auth.state";
 
 @Component({
     selector: "app-header",

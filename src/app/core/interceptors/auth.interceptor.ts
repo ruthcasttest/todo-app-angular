@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from "@angular/common/http";
 import { inject } from "@angular/core";
 
-import { AuthState } from "../../features/auth/application/state/auth.state";
+import { AuthState } from "../../features/auth/state/auth.state";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authState = inject(AuthState);

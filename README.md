@@ -95,27 +95,219 @@ Se implementó la nueva sintaxis de control de flujo de Angular 17:
 - **trackBy**: Optimización de renderizado en listas
 - **Lazy Loading**: Carga diferida de rutas por feature
 
-## Development server
+### Pruebas Unitarias
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+El proyecto incluye una suite completa de pruebas unitarias con **89 tests** que cubren:
 
-## Code scaffolding
+| Archivo | Cobertura |
+|---------|-----------|
+| `TasksState` | Estado reactivo, CRUD de tareas, computed signals |
+| `TaskService` | Operaciones CRUD, manejo de errores, estados de carga |
+| `TaskListComponent` | Filtrado, búsqueda, interacción con tareas |
+| `TaskItemComponent` | Toggle, edición, eliminación, diálogos |
+| `LoginComponent` | Validación de formularios, autenticación |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Configuración del Proyecto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Requisitos Previos
 
-## Running unit tests
+- **Node.js**: v18.19.0 o superior
+- **npm**: v10.x o superior
+- **Angular CLI**: v17.x
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Instalación
 
-## Running end-to-end tests
+```bash
+# Clonar el repositorio
+git clone <repository-url>
+cd challenge-ruth-reyes-frontend
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Instalar dependencias
+npm install
+```
 
-## Further help
+### Variables de Entorno
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# todo-app-angular
+El proyecto utiliza archivos de entorno para configurar la URL del API:
+
+```typescript
+// src/environments/environment.ts (desarrollo)
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:5001/your-project/us-central1/api'
+};
+
+// src/environments/environment.prod.ts (producción)
+export const environment = {
+  production: true,
+  apiUrl: 'https://us-central1-your-project.cloudfunctions.net/api'
+};
+```
+
+---
+
+## Scripts Disponibles
+
+| Comando | Descripción |
+|---------|-------------|
+| `npm start` | Inicia servidor de desarrollo en `http://localhost:4200` |
+| `npm run build` | Build de producción con optimizaciones |
+| `npm test` | Ejecuta pruebas unitarias con Karma |
+| `npm run lint` | Ejecuta ESLint para análisis de código |
+| `npm run watch` | Build en modo watch para desarrollo |
+
+---
+
+## Build de Producción
+
+### Optimizaciones Incluidas
+
+El build de producción (`npm run build`) incluye las siguientes optimizaciones:
+
+| Optimización | Descripción |
+|--------------|-------------|
+| **Tree Shaking** | Eliminación automática de código no utilizado |
+| **Minificación** | Compresión de JavaScript, CSS y HTML |
+| **AOT Compilation** | Compilación Ahead-of-Time para mejor rendimiento |
+| **Source Maps** | Deshabilitados en producción para menor tamaño |
+| **Output Hashing** | Cache busting con hashes en nombres de archivos |
+| **Subresource Integrity** | Verificación de integridad de recursos |
+| **License Extraction** | Extracción de licencias a archivo separado |
+| **Bundle Budgets** | Alertas si el bundle excede límites definidos |
+
+### Ejecutar Build
+
+```bash
+# Build de producción
+npm run build
+
+# Build con análisis de bundle (opcional)
+npm run build -- --stats-json
+```
+
+Los artefactos se generan en `dist/atom-challenge-fe-template/browser/`
+
+---
+
+## CI/CD con GitHub Actions
+
+El proyecto incluye un pipeline de CI/CD configurado en `.github/workflows/ci-cd.yml`:
+
+### Pipeline de Integración Continua
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│    TEST     │────▶│    BUILD    │────▶│   DEPLOY    │
+│  - Lint     │     │  - Compile  │     │  - Firebase │
+│  - Unit     │     │  - Optimize │     │    Hosting  │
+│    Tests    │     │             │     │             │
+└─────────────┘     └─────────────┘     └─────────────┘
+```
+
+### Flujo del Pipeline
+
+1. **Test**: Se ejecuta en cada push y PR
+   - Lint con ESLint
+   - Pruebas unitarias con cobertura
+   - Genera reporte de cobertura
+
+2. **Build**: Se ejecuta después de tests exitosos
+   - Compila aplicación para producción
+   - Genera artefactos optimizados
+
+3. **Deploy**: Solo en push a `main`/`master`
+   - Despliega automáticamente a Firebase Hosting
+
+### Configuración de Secrets
+
+Para habilitar el despliegue automático, configura los siguientes secrets en GitHub:
+
+1. **FIREBASE_SERVICE_ACCOUNT**: JSON de cuenta de servicio de Firebase
+   ```bash
+   # Generar cuenta de servicio
+   firebase login:ci
+   ```
+
+2. Actualiza `projectId` en el workflow con tu ID de proyecto Firebase
+
+---
+
+## Despliegue Manual a Firebase
+
+### Configuración Inicial
+
+```bash
+# Instalar Firebase CLI
+npm install -g firebase-tools
+
+# Autenticarse
+firebase login
+
+# Inicializar proyecto (si no está configurado)
+firebase init hosting
+```
+
+### Desplegar
+
+```bash
+# Build de producción
+npm run build
+
+# Desplegar a Firebase Hosting
+firebase deploy --only hosting
+```
+
+### Configuración de Firebase (`firebase.json`)
+
+```json
+{
+  "hosting": {
+    "public": "dist/atom-challenge-fe-template/browser",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      { "source": "/api/**", "function": "api" },
+      { "source": "**", "destination": "/index.html" }
+    ]
+  }
+}
+```
+
+---
+
+## Estructura de Archivos Clave
+
+```
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml          # Pipeline CI/CD
+├── src/
+│   ├── environments/
+│   │   ├── environment.ts     # Config desarrollo
+│   │   └── environment.prod.ts # Config producción
+│   └── app/
+│       ├── features/          # Módulos por feature
+│       ├── core/              # Servicios globales
+│       └── shared/            # Componentes compartidos
+├── angular.json               # Config Angular con optimizaciones
+├── firebase.json              # Config Firebase Hosting
+└── package.json               # Scripts y dependencias
+```
+
+---
+
+## Tecnologías Utilizadas
+
+| Categoría | Tecnología |
+|-----------|------------|
+| Framework | Angular 17.3.6 |
+| UI Library | Angular Material |
+| State | Angular Signals |
+| HTTP | HttpClient + RxJS |
+| Testing | Karma + Jasmine |
+| Linting | ESLint |
+| CI/CD | GitHub Actions |
+| Hosting | Firebase Hosting |
+| Backend | Firebase Cloud Functions |
+| Database | Firebase Firestore |
