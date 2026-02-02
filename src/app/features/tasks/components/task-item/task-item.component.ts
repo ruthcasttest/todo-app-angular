@@ -1,5 +1,7 @@
 import { DatePipe } from "@angular/common";
-import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
+import {
+    Component, EventEmitter, inject, Input, Output
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -9,7 +11,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 
 import { ConfirmDialogComponent } from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
-
 import { Task } from "../../models/task.model";
 
 @Component({

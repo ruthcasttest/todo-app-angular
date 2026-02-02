@@ -1,11 +1,13 @@
 import { inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { catchError, EMPTY, finalize, Observable, tap } from "rxjs";
+import {
+    catchError, EMPTY, finalize, Observable, tap
+} from "rxjs";
 
 import { StorageService } from "../../../core/services/storage.service";
-import { UserApiService } from "./user.service";
 import { CheckUserResponse, User } from "../models/user.model";
 import { AuthState } from "../state/auth.state";
+import { UserApiService } from "./user.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -32,7 +34,7 @@ export class AuthService {
         this.authState.setError(null);
 
         return this.userApiService.checkUserExists(email).pipe(
-            tap(response => {
+            tap((response) => {
                 if (response.exists && response.user) {
                     this.setAuthenticatedUser(response.user);
                 }
@@ -50,7 +52,7 @@ export class AuthService {
         this.authState.setError(null);
 
         return this.userApiService.createUser({ email }).pipe(
-            tap(user => this.setAuthenticatedUser(user)),
+            tap((user) => this.setAuthenticatedUser(user)),
             finalize(() => this.authState.setLoading(false)),
             catchError(() => {
                 this.authState.setError("Error creating user. Please try again.");

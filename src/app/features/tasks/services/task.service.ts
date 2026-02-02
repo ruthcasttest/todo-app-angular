@@ -1,10 +1,12 @@
 import { inject, Injectable } from "@angular/core";
-import { catchError, EMPTY, finalize, Observable, tap } from "rxjs";
+import {
+    catchError, EMPTY, finalize, Observable, tap
+} from "rxjs";
 
 import { AuthState } from "../../auth/state/auth.state";
-import { TaskApiService } from "./task-api.service";
 import { CreateTaskRequest, Task, UpdateTaskRequest } from "../models/task.model";
 import { TasksState } from "../state/tasks.state";
+import { TaskApiService } from "./task-api.service";
 
 @Injectable({ providedIn: "root" })
 export class TaskService {
@@ -22,7 +24,7 @@ export class TaskService {
         this.tasksState.setError(null);
 
         return this.taskApiService.getTasks(userId).pipe(
-            tap(tasks => this.tasksState.setTasks(tasks)),
+            tap((tasks) => this.tasksState.setTasks(tasks)),
             finalize(() => this.tasksState.setLoading(false)),
             catchError(() => {
                 this.tasksState.setError("Error loading tasks");
@@ -43,7 +45,7 @@ export class TaskService {
         this.tasksState.setError(null);
 
         return this.taskApiService.createTask(request).pipe(
-            tap(task => this.tasksState.addTask(task)),
+            tap((task) => this.tasksState.addTask(task)),
             finalize(() => this.tasksState.setLoading(false)),
             catchError(() => {
                 this.tasksState.setError("Error creating task");
@@ -57,7 +59,7 @@ export class TaskService {
         this.tasksState.setError(null);
 
         return this.taskApiService.updateTask(request).pipe(
-            tap(task => this.tasksState.updateTask(task)),
+            tap((task) => this.tasksState.updateTask(task)),
             finalize(() => this.tasksState.setLoading(false)),
             catchError(() => {
                 this.tasksState.setError("Error updating task");

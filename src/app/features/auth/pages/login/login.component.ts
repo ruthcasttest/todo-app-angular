@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+    FormBuilder, FormGroup, ReactiveFormsModule, Validators
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -8,9 +10,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router } from "@angular/router";
 
+import { CreateUserDialogComponent } from "../../components/create-user-dialog/create-user-dialog.component";
 import { AuthService } from "../../services/auth.service";
 import { AuthState } from "../../state/auth.state";
-import { CreateUserDialogComponent } from "../../components/create-user-dialog/create-user-dialog.component";
 
 @Component({
     selector: "app-login",
@@ -51,7 +53,7 @@ export class LoginComponent implements OnInit {
 
         const email = this.loginForm.get("email")?.value;
 
-        this.authService.checkUser(email).subscribe(response => {
+        this.authService.checkUser(email).subscribe((response) => {
             if (response.exists) {
                 this.router.navigate(["/tasks"]);
             } else {
@@ -67,7 +69,7 @@ export class LoginComponent implements OnInit {
             disableClose: false
         });
 
-        dialogRef.afterClosed().subscribe(confirmed => {
+        dialogRef.afterClosed().subscribe((confirmed) => {
             if (confirmed) {
                 this.authService.createUser(email).subscribe(() => {
                     this.router.navigate(["/tasks"]);

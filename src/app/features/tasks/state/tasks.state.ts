@@ -12,14 +12,10 @@ export class TasksState {
     readonly isLoading = this._isLoading.asReadonly();
     readonly error = this._error.asReadonly();
 
-    readonly pendingTasks = computed(() =>
-        [...this._tasks()]
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    );
+    readonly pendingTasks = computed(() => [...this._tasks()]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
 
-    readonly completedTasks = computed(() =>
-        this._tasks().filter(task => task.completed)
-    );
+    readonly completedTasks = computed(() => this._tasks().filter((task) => task.completed));
 
     readonly taskCount = computed(() => this._tasks().length);
 
@@ -28,17 +24,15 @@ export class TasksState {
     }
 
     addTask(task: Task): void {
-        this._tasks.update(tasks => [...tasks, task]);
+        this._tasks.update((tasks) => [...tasks, task]);
     }
 
     updateTask(updatedTask: Task): void {
-        this._tasks.update(tasks =>
-            tasks.map(task => task.id === updatedTask.id ? updatedTask : task)
-        );
+        this._tasks.update((tasks) => tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)));
     }
 
     removeTask(taskId: string): void {
-        this._tasks.update(tasks => tasks.filter(task => task.id !== taskId));
+        this._tasks.update((tasks) => tasks.filter((task) => task.id !== taskId));
     }
 
     setLoading(loading: boolean): void {

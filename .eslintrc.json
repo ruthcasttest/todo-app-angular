@@ -22,6 +22,10 @@
       ],
       "rules": {
         // ESLINT
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
+        "no-void": "off",
         "import/prefer-default-export": "off",
         "import/first": "error",
         "import/newline-after-import": "error",

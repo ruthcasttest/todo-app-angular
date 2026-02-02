@@ -1,4 +1,6 @@
-import { Component, computed, EventEmitter, Input, Output, signal } from "@angular/core";
+import {
+    Component, computed, EventEmitter, Input, Output, signal
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -36,8 +38,8 @@ export class TaskListComponent {
     readonly activeFilter = signal<TaskFilter>("all");
 
     readonly allTasks = computed(() => this.filterBySearch(this.tasks));
-    readonly pendingTasks = computed(() => this.filterBySearch(this.tasks.filter(t => !t.completed)));
-    readonly completedTasks = computed(() => this.filterBySearch(this.tasks.filter(t => t.completed)));
+    readonly pendingTasks = computed(() => this.filterBySearch(this.tasks.filter((t) => !t.completed)));
+    readonly completedTasks = computed(() => this.filterBySearch(this.tasks.filter((t) => t.completed)));
 
     readonly filteredTasks = computed(() => {
         const filter = this.activeFilter();
@@ -85,9 +87,7 @@ export class TaskListComponent {
         if (!term) {
             return tasks;
         }
-        return tasks.filter(task =>
-            task.title.toLowerCase().includes(term) ||
-            task.description.toLowerCase().includes(term)
-        );
+        return tasks.filter((task) => task.title.toLowerCase().includes(term)
+            || task.description.toLowerCase().includes(term));
     }
 }

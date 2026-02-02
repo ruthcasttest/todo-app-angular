@@ -108,7 +108,7 @@ describe("TasksState", () => {
 
             state.updateTask(updatedTask);
 
-            const task = state.tasks().find(t => t.id === "1");
+            const task = state.tasks().find((t) => t.id === "1");
             expect(task?.title).toBe("Updated Title");
             expect(task?.completed).toBeTrue();
         });
@@ -122,7 +122,7 @@ describe("TasksState", () => {
 
             state.updateTask(updatedTask);
 
-            const otherTask = state.tasks().find(t => t.id === "2");
+            const otherTask = state.tasks().find((t) => t.id === "2");
             expect(otherTask?.title).toBe("Task 2");
         });
 
@@ -146,7 +146,7 @@ describe("TasksState", () => {
         it("should remove a task by id", () => {
             state.removeTask("1");
 
-            const task = state.tasks().find(t => t.id === "1");
+            const task = state.tasks().find((t) => t.id === "1");
             expect(task).toBeUndefined();
         });
 
@@ -158,8 +158,8 @@ describe("TasksState", () => {
         it("should not affect other tasks", () => {
             state.removeTask("1");
 
-            const task2 = state.tasks().find(t => t.id === "2");
-            const task3 = state.tasks().find(t => t.id === "3");
+            const task2 = state.tasks().find((t) => t.id === "2");
+            const task3 = state.tasks().find((t) => t.id === "3");
             expect(task2).toBeDefined();
             expect(task3).toBeDefined();
         });
@@ -187,7 +187,7 @@ describe("TasksState", () => {
         });
 
         it("should return empty array when no completed tasks", () => {
-            const incompleteTasks = mockTasks.map(t => ({ ...t, completed: false }));
+            const incompleteTasks = mockTasks.map((t) => ({ ...t, completed: false }));
             state.setTasks(incompleteTasks);
 
             expect(state.completedTasks().length).toBe(0);

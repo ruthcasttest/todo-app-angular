@@ -3,16 +3,16 @@ import { MatDialog } from "@angular/material/dialog";
 
 import { ConfirmDialogComponent } from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 import { HeaderComponent } from "../../../../shared/components/header/header.component";
-import { TaskService } from "../../services/task.service";
-import { TasksState } from "../../state/tasks.state";
-import { Task } from "../../models/task.model";
-import { TaskFormComponent, TaskFormData } from "../../components/task-form/task-form.component";
-import { TaskListComponent } from "../../components/task-list/task-list.component";
-import { TaskSkeletonComponent } from "../../components/task-skeleton/task-skeleton.component";
 import {
     TaskEditDialogComponent,
     TaskEditDialogResult
 } from "../../components/task-edit-dialog/task-edit-dialog.component";
+import { TaskFormComponent, TaskFormData } from "../../components/task-form/task-form.component";
+import { TaskListComponent } from "../../components/task-list/task-list.component";
+import { TaskSkeletonComponent } from "../../components/task-skeleton/task-skeleton.component";
+import { Task } from "../../models/task.model";
+import { TaskService } from "../../services/task.service";
+import { TasksState } from "../../state/tasks.state";
 
 @Component({
     selector: "app-tasks-page",
@@ -74,7 +74,7 @@ export class TasksPageComponent implements OnInit {
             }
         });
 
-        dialogRef.afterClosed().subscribe(confirmed => {
+        dialogRef.afterClosed().subscribe((confirmed) => {
             if (confirmed) {
                 this.taskService.deleteTask(taskId).subscribe();
             }

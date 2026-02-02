@@ -3,10 +3,10 @@ import { TestBed } from "@angular/core/testing";
 import { of, throwError } from "rxjs";
 
 import { AuthState } from "../../auth/state/auth.state";
-import { TaskApiService } from "./task-api.service";
 import { Task } from "../models/task.model";
 import { TasksState } from "../state/tasks.state";
 import { TaskService } from "./task.service";
+import { TaskApiService } from "./task-api.service";
 
 describe("TaskService", () => {
     let service: TaskService;

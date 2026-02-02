@@ -83,13 +83,13 @@ describe("TaskListComponent", () => {
         it("should show only pending tasks when filter is 'pending'", () => {
             component.onTabChange(1);
             expect(component.filteredTasks().length).toBe(2);
-            expect(component.filteredTasks().every(t => !t.completed)).toBeTrue();
+            expect(component.filteredTasks().every((t) => !t.completed)).toBeTrue();
         });
 
         it("should show only completed tasks when filter is 'completed'", () => {
             component.onTabChange(2);
             expect(component.filteredTasks().length).toBe(1);
-            expect(component.filteredTasks().every(t => t.completed)).toBeTrue();
+            expect(component.filteredTasks().every((t) => t.completed)).toBeTrue();
         });
     });
 
