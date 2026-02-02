@@ -1,12 +1,21 @@
-# ATOM FE CHALLENGE TEMPLATE - ANGULAR
+# Task Manager - Angular 17
 
-Este proyecto es una plantilla con lo necesario para comenzar a desarrollar el front-end de la aplicación de la prueba técnica de Atom. Se base en Angular con la versión 17.3.6.
-Se ha realizado la instalación y configuración de varias dependencias necesarias para el desarrollo de la aplicación, como por ejemplo: Angular Material.
+Aplicación de gestión de tareas desarrollada con Angular 17 como parte del challenge técnico de ATOM.
 
-## Instrucciones
-Siéntete libre de clonar este repositorio y utilizarlo como base para el desarrollo de la aplicación. Sigue las indicates de la prueba técnica para completar la aplicación y desarrolla como más te sientas cómodo.
+## Demo en Vivo
 
-De igual manera puedes documentar dentro de este archivo todo lo que deseas contar sobre tu desarrollo, como por ejemplo, decisiones de diseño, problemas encontrados, etc.
+**Aplicación desplegada:** https://todo-tasks-4f8c7.web.app
+
+**API Backend:** https://us-central1-todo-tasks-4f8c7.cloudfunctions.net/api
+
+## Características Principales
+
+- Autenticación por email (sin contraseña)
+- CRUD completo de tareas
+- Filtros por estado (Todas/Pendientes/Completadas)
+- Búsqueda en tiempo real
+- Diseño responsive con Angular Material
+- CI/CD automatizado con GitHub Actions
 
 ## Comentarios sobre el desarrollo
 
@@ -136,13 +145,13 @@ El proyecto utiliza archivos de entorno para configurar la URL del API:
 // src/environments/environment.ts (desarrollo)
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5001/your-project/us-central1/api'
+  apiUrl: 'http://localhost:5001/todo-tasks-4f8c7/us-central1/api'
 };
 
 // src/environments/environment.prod.ts (producción)
 export const environment = {
   production: true,
-  apiUrl: 'https://us-central1-your-project.cloudfunctions.net/api'
+  apiUrl: 'https://us-central1-todo-tasks-4f8c7.cloudfunctions.net/api'
 };
 ```
 
@@ -222,15 +231,14 @@ El proyecto incluye un pipeline de CI/CD configurado en `.github/workflows/ci-cd
 
 ### Configuración de Secrets
 
-Para habilitar el despliegue automático, configura los siguientes secrets en GitHub:
+Para habilitar el despliegue automático, configura el siguiente secret en GitHub:
 
-1. **FIREBASE_SERVICE_ACCOUNT**: JSON de cuenta de servicio de Firebase
-   ```bash
-   # Generar cuenta de servicio
-   firebase login:ci
-   ```
+1. Ve a **Settings** → **Secrets and variables** → **Actions**
+2. Crea un nuevo secret llamado `FIREBASE_SERVICE_ACCOUNT`
+3. Pega el JSON de la cuenta de servicio de Firebase
 
-2. Actualiza `projectId` en el workflow con tu ID de proyecto Firebase
+Para obtener el JSON:
+- Firebase Console → Project Settings → Service Accounts → Generate new private key
 
 ---
 
