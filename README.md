@@ -106,15 +106,22 @@ Se implementó la nueva sintaxis de control de flujo de Angular 17:
 
 ### Pruebas Unitarias
 
-El proyecto incluye una suite completa de pruebas unitarias con **89 tests** que cubren:
+El proyecto incluye una suite completa de pruebas unitarias con **181 tests** que cubren:
 
 | Archivo | Cobertura |
 |---------|-----------|
+| `AuthService` | Autenticación, login, logout, persistencia |
+| `AuthState` | Estado de autenticación, signals, computed |
+| `UserApiService` | Llamadas HTTP, check user, create user |
+| `StorageService` | LocalStorage CRUD operations |
 | `TasksState` | Estado reactivo, CRUD de tareas, computed signals |
 | `TaskService` | Operaciones CRUD, manejo de errores, estados de carga |
 | `TaskListComponent` | Filtrado, búsqueda, interacción con tareas |
 | `TaskItemComponent` | Toggle, edición, eliminación, diálogos |
+| `TaskFormComponent` | Validación de formularios, submit |
 | `LoginComponent` | Validación de formularios, autenticación |
+| `HeaderComponent` | Display condicional, logout |
+| `ConfirmDialogComponent` | Confirm/Cancel actions |
 
 ---
 
